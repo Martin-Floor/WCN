@@ -1,4 +1,4 @@
-To install dependencies, create a new conda environment from the wcn-environment.yml file in this repository as follows:
+To install dependencies, create a new conda environment from the wcn_environment.yml file in this repository as follows:
 
 conda env create -f wcn_environment.yml
 

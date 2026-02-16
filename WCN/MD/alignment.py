@@ -1,5 +1,5 @@
 from ..alignment import mafft
-from Bio.PDB.Polypeptide import three_to_one
+from .._biopython_compat import three_to_one_safe
 
 def alignTrajectoryBySequenceAlignment(trajectory, reference, reference_frame=0,
                                        chain_indexes=None, trajectory_chain_indexes=None,
@@ -192,10 +192,7 @@ def getTopologySequence(topology, chain_index, non_protein='X'):
 
     sequence = ''
     for r in topology.chain(chain_index).residues:
-        try:
-            sequence += three_to_one(r.name)
-        except:
-            sequence += non_protein
+        sequence += three_to_one_safe(r.name, default=non_protein)
     return sequence
 
 def getChainIndexesToResidueIndexes(topology):

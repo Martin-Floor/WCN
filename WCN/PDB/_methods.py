@@ -1,6 +1,7 @@
 from Bio import PDB
 import os
 import shutil
+from .._biopython_compat import three_to_one_safe
 
 def retrievePDBs(pdb_codes, names=None, pdb_directory='PDB'):
     """
@@ -135,10 +136,7 @@ def getChainSequence(chain):
     sequence = ''
     for r in chain:
         if r.id[0] == ' ': # Non heteroatom filter
-            try:
-                sequence += PDB.Polypeptide.three_to_one(r.resname)
-            except:
-                sequence += 'X'
+            sequence += three_to_one_safe(r.resname, default='X')
     if sequence == '':
         return None
     else:
